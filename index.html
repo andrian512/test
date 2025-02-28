@@ -195,6 +195,33 @@
             });
         }
 
+        // Fungsi untuk memformat waktu dari format ISO ke format yang lebih ramah pengguna
+        function formatTime(timestamp) {
+            const now = new Date();
+            const commentTime = new Date(timestamp);
+            const differenceInSeconds = Math.floor((now - commentTime) / 1000);
+            const differenceInMinutes = Math.floor(differenceInSeconds / 60);
+            const differenceInHours = Math.floor(differenceInMinutes / 60);
+            const differenceInDays = Math.floor(differenceInHours / 24);
+
+            if (differenceInSeconds < 60) {
+                return 'Baru saja';
+            } else if (differenceInMinutes < 60) {
+                return `${differenceInMinutes} menit yang lalu`;
+            } else if (differenceInHours < 24) {
+                return `${differenceInHours} jam yang lalu`;
+            } else if (differenceInDays < 2) {
+                return 'Kemarin';
+            } else {
+                const options = {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric'
+                };
+                return commentTime.toLocaleDateString('id-ID', options);
+            }
+        }
+
         // Fungsi untuk menampilkan komentar di halaman
         function displayComments() {
             loadComments().then(comments => {
@@ -214,7 +241,7 @@
 
                     const timeElement = document.createElement('p');
                     timeElement.className = 'text-sm text-gray-500';
-                    timeElement.textContent = comment.time;
+                    timeElement.textContent = formatTime(comment.time);
 
                     const messageElement = document.createElement('p');
                     messageElement.className = 'text-gray-700';
