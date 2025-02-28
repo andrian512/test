@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -80,6 +79,11 @@
             cursor: pointer;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+        /* Comment Section Styling */
+        #commentsContainer {
+            max-height: 300px; /* Set a fixed height for the comment container */
+            overflow-y: auto; /* Enable vertical scrolling */
+        }
     </style>
 </head>
 <body class="bg-gray-100 font-body relative overflow-x-hidden">
@@ -116,103 +120,103 @@
                 <h2 class="font-script text-4xl md:text-5xl text-center text-pink-600 mb-16">RSVP</h2>
 
                 <div class="max-w-md mx-auto bg-pink-50 p-8 rounded-lg shadow-lg">
-            <p class="text-center mb-6">Mohon konfirmasi kehadiran Anda sebelum 20 Februari 2025</p>
-            
-            <form id="rsvpForm" class="space-y-6">
-                <div>
-                    <label for="name" class="block text-gray-700 mb-2">Nama</label>
-                    <input 
-                        type="text" 
-                        id="name" 
-                        name="name" 
-                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
-                        required 
-                        placeholder="Masukkan nama Anda"
-                    >
-                </div>
-                
-                <div>
-                    <label for="email" class="block text-gray-700 mb-2">Email</label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
-                        required 
-                        placeholder="Masukkan email Anda"
-                    >
-                </div>
-                
-                <div>
-                    <label for="phone" class="block text-gray-700 mb-2">Nomor Telepon</label>
-                    <input 
-                        type="tel" 
-                        id="phone" 
-                        name="phone" 
-                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
-                        required 
-                        placeholder="Masukkan nomor telepon"
-                    >
-                </div>
-                
-                <div>
-                    <label class="block text-gray-700 mb-2">Apakah Anda akan hadir?</label>
-                    <div class="flex space-x-4">
-                        <label class="flex items-center">
+                    <p class="text-center mb-6">Mohon konfirmasi kehadiran Anda sebelum 20 Februari 2025</p>
+                    
+                    <form id="rsvpForm" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-gray-700 mb-2">Nama</label>
                             <input 
-                                type="radio" 
-                                name="attendance" 
-                                value="yes" 
-                                class="mr-2" 
-                                required
+                                type="text" 
+                                id="name" 
+                                name="name" 
+                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
+                                required 
+                                placeholder="Masukkan nama Anda"
                             >
-                            <span>Ya, saya akan hadir</span>
-                        </label>
-                        <label class="flex items-center">
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-gray-700 mb-2">Email</label>
                             <input 
-                                type="radio" 
-                                name="attendance" 
-                                value="no" 
-                                class="mr-2"
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
+                                required 
+                                placeholder="Masukkan email Anda"
                             >
-                            <span>Maaf, saya tidak bisa hadir</span>
-                        </label>
-                    </div>
+                        </div>
+                        
+                        <div>
+                            <label for="phone" class="block text-gray-700 mb-2">Nomor Telepon</label>
+                            <input 
+                                type="tel" 
+                                id="phone" 
+                                name="phone" 
+                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
+                                required 
+                                placeholder="Masukkan nomor telepon"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 mb-2">Apakah Anda akan hadir?</label>
+                            <div class="flex space-x-4">
+                                <label class="flex items-center">
+                                    <input 
+                                        type="radio" 
+                                        name="attendance" 
+                                        value="yes" 
+                                        class="mr-2" 
+                                        required
+                                    >
+                                    <span>Ya, saya akan hadir</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input 
+                                        type="radio" 
+                                        name="attendance" 
+                                        value="no" 
+                                        class="mr-2"
+                                    >
+                                    <span>Maaf, saya tidak bisa hadir</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="guests" class="block text-gray-700 mb-2">Jumlah Tamu</label>
+                            <select 
+                                id="guests" 
+                                name="guests" 
+                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                            >
+                                <option value="1">1 orang</option>
+                                <option value="2">2 orang</option>
+                                <option value="3">3 orang</option>
+                                <option value="4">4 orang</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-gray-700 mb-2">Pesan untuk Pengantin</label>
+                            <textarea 
+                                id="message" 
+                                name="message" 
+                                rows="4" 
+                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
+                                placeholder="Tulis pesan Anda di sini"
+                            ></textarea>
+                        </div>
+                        
+                        <button 
+                            type="submit" 
+                            class="w-full bg-pink-500 hover:bg-pink-600 text-white py-2 px-6 rounded-full transition duration-300 shadow-lg"
+                        >
+                            Kirim RSVP
+                        </button>
+                    </form>
                 </div>
-                
-                <div>
-                    <label for="guests" class="block text-gray-700 mb-2">Jumlah Tamu</label>
-                    <select 
-                        id="guests" 
-                        name="guests" 
-                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
-                    >
-                        <option value="1">1 orang</option>
-                        <option value="2">2 orang</option>
-                        <option value="3">3 orang</option>
-                        <option value="4">4 orang</option>
-                    </select>
-                </div>
-                
-                <div>
-                    <label for="message" class="block text-gray-700 mb-2">Pesan untuk Pengantin</label>
-                    <textarea 
-                        id="message" 
-                        name="message" 
-                        rows="4" 
-                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
-                        placeholder="Tulis pesan Anda di sini"
-                    ></textarea>
-                </div>
-                
-                <button 
-                    type="submit" 
-                    class="w-full bg-pink-500 hover:bg-pink-600 text-white py-2 px-6 rounded-full transition duration-300 shadow-lg"
-                >
-                    Kirim RSVP
-                </button>
-            </form>
-        </div>
 
                 <!-- Comment Section -->
                 <div class="mt-12 max-w-md mx-auto">
@@ -291,7 +295,11 @@
                 const commentsContainer = document.getElementById('commentsContainer');
                 commentsContainer.innerHTML = ''; // Bersihkan container
 
-                comments.forEach(comment => {
+                // Sort comments from newest to oldest
+                comments.sort((a, b) => new Date(b.time) - new Date(a.time));
+
+                // Display only the latest 3 comments initially
+                comments.slice(0, 3).forEach(comment => {
                     const commentDiv = document.createElement('div');
                     commentDiv.className = 'bg-white p-4 rounded-lg shadow-md';
 
@@ -318,6 +326,44 @@
 
                     commentsContainer.appendChild(commentDiv);
                 });
+
+                // Add a "Load More" button if there are more comments
+                if (comments.length > 3) {
+                    const loadMoreButton = document.createElement('button');
+                    loadMoreButton.className = 'w-full bg-pink-500 hover:bg-pink-600 text-white py-2 px-6 rounded-full transition duration-300 shadow-lg mt-4';
+                    loadMoreButton.textContent = 'Load More Comments';
+                    loadMoreButton.addEventListener('click', function() {
+                        comments.slice(3).forEach(comment => {
+                            const commentDiv = document.createElement('div');
+                            commentDiv.className = 'bg-white p-4 rounded-lg shadow-md';
+
+                            const headerDiv = document.createElement('div');
+                            headerDiv.className = 'flex items-center justify-between mb-2';
+
+                            const nameElement = document.createElement('p');
+                            nameElement.className = 'font-semibold text-gray-800';
+                            nameElement.textContent = comment.name;
+
+                            const timeElement = document.createElement('p');
+                            timeElement.className = 'text-sm text-gray-500';
+                            timeElement.textContent = formatTime(comment.time);
+
+                            const messageElement = document.createElement('p');
+                            messageElement.className = 'text-gray-700';
+                            messageElement.textContent = comment.message;
+
+                            headerDiv.appendChild(nameElement);
+                            headerDiv.appendChild(timeElement);
+
+                            commentDiv.appendChild(headerDiv);
+                            commentDiv.appendChild(messageElement);
+
+                            commentsContainer.appendChild(commentDiv);
+                        });
+                        loadMoreButton.style.display = 'none'; // Hide the button after loading more comments
+                    });
+                    commentsContainer.appendChild(loadMoreButton);
+                }
             });
         }
 
