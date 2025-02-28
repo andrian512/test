@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation - Pulan & Pulana</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap');
+        .font-script {
+            font-family: 'Great Vibes', cursive;
+        }
+        .font-body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .bg-overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background: #d1b378;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: -1;
+        }
+        .timeline-point {
+            width: 20px;
+            height: 20px;
+            background: #d1b378;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .envelope {
+            transition: all 0.5s ease;
+        }
+        .envelope.open {
+            transform: translateY(-100px);
+            opacity: 0;
+        }
+        .invitation-content {
+            transition: all 1s ease;
+            transform: translateY(50px);
+            opacity: 0;
+        }
+        .invitation-content.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .count-down {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .count-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 60px;
+        }
+        /* Audio player styling */
+        .audio-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-body relative overflow-x-hidden">
+    <!-- Audio Control -->
+    <div class="audio-control" id="audioControl">
+        <i class="fas fa-play text-pink-500" id="audioIcon"></i>
+    </div>
+    <audio id="bgMusic" loop>
+        <source src="audio/kai.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Initial Envelope -->
+    <div class="envelope fixed inset-0 bg-pink-50 flex items-center justify-center z-50" id="envelope">
+        <div class="text-center p-6 max-w-lg">
+            <div class="mb-6">
+                <img src="images/amplop.png" alt="Wedding Rings" class="mx-auto rounded-full">
+            </div>
+            <h1 class="font-script text-5xl mb-4 text-pink-600">Pulan & Pulana</h1>
+            <p class="text-gray-700 mb-6">We are getting married</p>
+            <button id="openInvitation" class="bg-pink-500 hover:bg-pink-600 text-white py-2 px-6 rounded-full transition duration-300 shadow-lg">
+                Open Invitation
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="invitation-content" id="invitationContent">
+        <!-- Other sections here -->
+
+        <!-- RSVP Section -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="font-script text-4xl md:text-5xl text-center text-pink-600 mb-16">RSVP</h2>
+
+                <div class="max-w-md mx-auto bg-pink-50 p-8 rounded-lg shadow-lg">
+                    <p class="text-center mb-6">Mohon konfirmasi kehadiran Anda sebelum 20 Februari 2025</p>
+
+                    <form id="rsvpForm" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-gray-700 mb-2">Nama</label>
+                            <input 
+                                type="text" 
+                                id="name" 
+                                name="name" 
+                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
+                                required 
+                                placeholder="Masukkan nama Anda"
+                            >
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-gray-700 mb-2">Pesan untuk Pengantin</label>
+                            <textarea 
+                                id="message" 
+                                name="message" 
+                                rows="4" 
+                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" 
+                                placeholder="Tulis pesan Anda di sini"
+                            ></textarea>
+                        </div>
+
+                        <button 
+                            type="submit" 
+                            class="w-full bg-pink-500 hover:bg-pink-600 text-white py-2 px-6 rounded-full transition duration-300 shadow-lg"
+                        >
+                            Kirim RSVP
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Comment Section -->
+                <div class="mt-12 max-w-md mx-auto">
+                    <h3 class="font-bold text-xl text-center text-pink-600 mb-6">Komentar Terbaru</h3>
+                    <div id="commentsContainer" class="space-y-4">
+                        <!-- Komentar akan ditampilkan di sini -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Other sections here -->
+    </div>
+
+    <script>
+    $(document).ready(function() {
+        // Open invitation
+        $("#openInvitation").click(function() {
+            $("#envelope").addClass("open");
+            setTimeout(function() {
+                $("#envelope").hide();
+                $("#invitationContent").addClass("show");
+                startCountdown();
+            }, 500);
+        });
+
+        // Fungsi untuk menyimpan komentar ke MockAPI
+        function saveComment(comment) {
+            return $.ajax({
+                url: 'https://67c1315161d8935867e2238b.mockapi.io/comment',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(comment)
+            });
+        }
+
+        // Fungsi untuk mendapatkan komentar dari MockAPI
+        function loadComments() {
+            return $.ajax({
+                url: 'https://67c1315161d8935867e2238b.mockapi.io/comment',
+                method: 'GET',
+                contentType: 'application/json'
+            });
+        }
+
+        // Fungsi untuk menampilkan komentar di halaman
+        function displayComments() {
+            loadComments().then(comments => {
+                const commentsContainer = document.getElementById('commentsContainer');
+                commentsContainer.innerHTML = ''; // Bersihkan container
+
+                comments.forEach(comment => {
+                    const commentDiv = document.createElement('div');
+                    commentDiv.className = 'bg-white p-4 rounded-lg shadow-md';
+
+                    const headerDiv = document.createElement('div');
+                    headerDiv.className = 'flex items-center justify-between mb-2';
+
+                    const nameElement = document.createElement('p');
+                    nameElement.className = 'font-semibold text-gray-800';
+                    nameElement.textContent = comment.name;
+
+                    const timeElement = document.createElement('p');
+                    timeElement.className = 'text-sm text-gray-500';
+                    timeElement.textContent = comment.time;
+
+                    const messageElement = document.createElement('p');
+                    messageElement.className = 'text-gray-700';
+                    messageElement.textContent = comment.message;
+
+                    headerDiv.appendChild(nameElement);
+                    headerDiv.appendChild(timeElement);
+
+                    commentDiv.appendChild(headerDiv);
+                    commentDiv.appendChild(messageElement);
+
+                    commentsContainer.appendChild(commentDiv);
+                });
+            });
+        }
+
+        // Event listener untuk form submit
+        document.getElementById('rsvpForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Ambil nilai dari form
+            const name = document.getElementById('name').value;
+            const message = document.getElementById('message').value;
+            const time = new Date().toISOString(); // Simpan waktu saat ini dalam format ISO
+
+            // Buat objek komentar baru
+            const newComment = { name, message, time };
+
+            // Simpan komentar ke MockAPI
+            saveComment(newComment).then(() => {
+                // Tampilkan komentar terbaru
+                displayComments();
+
+                // Reset form
+                this.reset();
+
+                // Tampilkan pesan sukses
+                alert("Terima kasih! RSVP Anda telah diterima.");
+            });
+        });
+
+        // Tampilkan komentar saat halaman dimuat
+        displayComments();
+
+        // Audio control
+        let audioPlaying = false;
+        const bgMusic = document.getElementById("bgMusic");
+        const audioControl = document.getElementById("audioControl");
+        const audioIcon = document.getElementById("audioIcon");
+
+        audioControl.addEventListener("click", function() {
+            if (audioPlaying) {
+                bgMusic.pause();
+                audioIcon.classList.remove("fa-pause");
+                audioIcon.classList.add("fa-play");
+            } else {
+                bgMusic.play();
+                audioIcon.classList.remove("fa-play");
+                audioIcon.classList.add("fa-pause");
+            }
+            audioPlaying = !audioPlaying;
+        });
+
+        // Countdown timer
+        function startCountdown() {
+            const weddingDate = new Date("Feb 28, 2025 08:00:00").getTime();
+
+            // Update the count down every 1 second
+            const x = setInterval(function() {
+                // Get current date and time
+                const now = new Date().getTime();
+
+                // Find the distance between now and the wedding date
+                const distance = weddingDate - now;
+
+                // Time calculations for days, hours, minutes and seconds
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Display the result
+                document.getElementById("days").innerHTML = days.toString().padStart(2, '0');
+                document.getElementById("hours").innerHTML = hours.toString().padStart(2, '0');
+                document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, '0');
+                document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, '0');
+
+                // If the countdown is finished, display some text
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("days").innerHTML = "00";
+                    document.getElementById("hours").innerHTML = "00";
+                    document.getElementById("minutes").innerHTML = "00";
+                    document.getElementById("seconds").innerHTML = "00";
+                }
+            }, 1000);
+        }
+    });
+    </script>
+</body>
+</html>
